@@ -1,1 +1,3 @@
-# AirBnB_clone
+## AirBnB_clone
+
+--REQUIREMENTS OUR PROJECT--
