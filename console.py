@@ -32,15 +32,10 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
-    def all(self):
-        """Returns the dictionary __objects
-        """
-        return self.__objects
-
     def do_create(self, line):
         """
         create a new instance from base model
-        """ 
+        """
         if len(line) == 0:
             print("** class name missing **")
             return False
@@ -57,29 +52,6 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """
         Representation of an instance based on the class name and id
-        """ 
-        split_line = shlex.split(line)
-        if len(split_line) == 0:
-            print("** class name missing **")
-            return False
-        try:
-            eval(split_line[0])
-        except Exception:
-            print("** class doesn't exist **")
-            return False
-        if len(split_line) < 2:
-            print("** instance id missing **")
-            return False
-        
-        tmp_key = split_line[0] + "." + split_line[1]
-        if tmp_key in storage.all().keys():
-            print(storage.all()[tmp_key])
-        else:
-            print("** no instance found **")
-
-    def do_destroy(self, line):
-        """
-        Method to Deletes an instance based on the class name and id.
         """
         split_line = shlex.split(line)
         if len(split_line) == 0:
@@ -92,6 +64,11 @@ class HBNBCommand(cmd.Cmd):
             return False
         if len(split_line) < 2:
             print("** instance id missing **")
+            return False
+        try:
+            eval(split_line[0])
+        except Exception:
+            print("** class doesn't exist **")
             return False
 
         tmp_key = split_line[0] + "." + split_line[1]
@@ -100,20 +77,19 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
         else:
             print("** no instance found **")
-    
+
     def do_all(self, line):
         split_line = shlex.split(line)
-        list_ = []
         if len(split_line) == 0:
-            for i in storage.all().keys():
-                list_.append(storage.all()[i])
-            print(list_)
-            return
+            print([str(v) for v in storage.all().values()])
+            return False
         try:
             eval(split_line[0])
         except Exception:
             print("** class doesn't exist **")
             return False
+        print([str(v) for k, v in storage.all().items()
+              if split_line[0] in k])
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
