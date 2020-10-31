@@ -78,7 +78,34 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
 
+    def do_destroy(self, line):
+        """
+        Method to Deletes an instance based on the class name and id.
+        """
+        split_line = shlex.split(line)
+        if len(split_line) == 0:
+            print("** class name missing **")
+            return False
+        try:
+            eval(split_line[0])
+        except Exception:
+            print("** class doesn't exist **")
+            return False
+        if len(split_line) < 2:
+            print("** instance id missing **")
+            return False
+
+        tmp_key = split_line[0] + "." + split_line[1]
+        if tmp_key in storage.all().keys():
+            del(storage.all()[tmp_key])
+            storage.save()
+        else:
+            print("** no instance found **")
+
     def do_all(self, line):
+        """
+        Method to print all elements of storage as a list of string
+        """
         split_line = shlex.split(line)
         if len(split_line) == 0:
             print([str(v) for v in storage.all().values()])
@@ -90,6 +117,37 @@ class HBNBCommand(cmd.Cmd):
             return False
         print([str(v) for k, v in storage.all().items()
               if split_line[0] in k])
+
+    def do_update(self, line):
+        """
+        Method to Updates an instance based on the class name
+        and id by adding or updating attribute
+        """
+        split_line = shlex.split(line)
+        if len(split_line) == 0:
+            print("** class name missing **")
+            return False
+        try:
+            eval(split_line[0])
+        except Exception:
+            print("** class doesn't exist **")
+            return False
+        if len(split_line) < 2:
+            print("** instance id missing **")
+        elif split_line[0] + "." + split_line[1] not in storage.all().keys():
+            print("** no instance found **")
+        elif len(split_line) < 3:
+            print("** attribute name missing **")
+        elif len(split_line) < 4:
+            print("** value missing **")
+        else:
+            tmp_key = split_line[0] + "." + split_line[1]
+            if split_line[3][0] == "\"":
+                split_line[3] = split_line[3][1: -1] 
+            setattr(storage.all()[tmp_key],split_line[2],split_line[3])
+            storage.all()[tmp_key].save()
+            print("hey")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
