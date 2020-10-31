@@ -62,15 +62,13 @@ class HBNBCommand(cmd.Cmd):
         if len(split_line) == 0:
             print("** class name missing **")
             return False
-        if len(split_line) < 2:
-            print("** instance id missing **")
-            return False
-        
         try:
             eval(split_line[0])
-
         except Exception:
             print("** class doesn't exist **")
+            return False
+        if len(split_line) < 2:
+            print("** instance id missing **")
             return False
         
         tmp_key = split_line[0] + "." + split_line[1]
@@ -79,6 +77,43 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
 
+    def do_destroy(self, line):
+        """
+        Method to Deletes an instance based on the class name and id.
+        """
+        split_line = shlex.split(line)
+        if len(split_line) == 0:
+            print("** class name missing **")
+            return False
+        try:
+            eval(split_line[0])
+        except Exception:
+            print("** class doesn't exist **")
+            return False
+        if len(split_line) < 2:
+            print("** instance id missing **")
+            return False
+
+        tmp_key = split_line[0] + "." + split_line[1]
+        if tmp_key in storage.all().keys():
+            del(storage.all()[tmp_key])
+            storage.save()
+        else:
+            print("** no instance found **")
+    
+    def do_all(self, line):
+        split_line = shlex.split(line)
+        list_ = []
+        if len(split_line) == 0:
+            for i in storage.all().keys():
+                list_.append(storage.all()[i])
+            print(list_)
+            return
+        try:
+            eval(split_line[0])
+        except Exception:
+            print("** class doesn't exist **")
+            return False
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
