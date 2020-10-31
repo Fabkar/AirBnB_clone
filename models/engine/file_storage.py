@@ -4,6 +4,12 @@ This module is meant to define the storage class
 """
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -32,7 +38,7 @@ class FileStorage:
         for k, v in FileStorage.__objects.items():
             dict_to_json[k] = v.to_dict()
         with open(FileStorage.__file_path, "w") as f:
-            json.dump(dict_to_json, f, indent="")
+            json.dump(dict_to_json, f)
 
     def reload(self):
         """Deserializes the JSON file to __objects (only if the JSON file

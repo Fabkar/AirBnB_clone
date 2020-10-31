@@ -2,11 +2,17 @@
 """
 Function speccify a Console the entry point of the command interpreter
 """
-from models import storage
 import cmd
 import json
 import shlex
+from models import storage
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models.engine.file_storage import FileStorage
 
 
@@ -142,11 +148,8 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
         else:
             tmp_key = split_line[0] + "." + split_line[1]
-            if split_line[3][0] == "\"":
-                split_line[3] = split_line[3][1: -1] 
-            setattr(storage.all()[tmp_key],split_line[2],split_line[3])
+            setattr(storage.all()[tmp_key], split_line[2], split_line[3])
             storage.all()[tmp_key].save()
-            print("hey")
 
 
 if __name__ == "__main__":
