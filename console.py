@@ -17,28 +17,27 @@ from models.engine.file_storage import FileStorage
 
 
 class HBNBCommand(cmd.Cmd):
-    """
-    Define the class HBNB as interpreter
+    """Define the class HBNB as interpreter
     """
     prompt = "(hbnb) "
 
     def do_quit(self, line):
-        """Quit command to exit the program"""
+        """Quit command to exit the program
+        """
         return True
 
     def do_EOF(self, line):
-        """Exit Success"""
+        """Exit Success
+        """
         return True
 
     def emptyline(self):
-        """
-        when recive an empty line do nothing.
+        """When recive an empty line do nothing.
         """
         pass
 
     def do_create(self, line):
-        """
-        create a new instance from base model
+        """Create a new instance from base model
         """
         if len(line) == 0:
             print("** class name missing **")
@@ -54,8 +53,7 @@ class HBNBCommand(cmd.Cmd):
             return False
 
     def do_show(self, line):
-        """
-        Representation of an instance based on the class name and id
+        """Representation of an instance based on the class name and id
         """
         split_line = shlex.split(line)
         if len(split_line) == 0:
@@ -83,8 +81,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, line):
-        """
-        Method to Deletes an instance based on the class name and id.
+        """Method to Deletes an instance based on the class name and id.
         """
         split_line = shlex.split(line)
         if len(split_line) == 0:
@@ -107,8 +104,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, line):
-        """
-        Method to print all elements of storage as a list of string
+        """Method to print all elements of storage as a list of string
         """
         split_line = shlex.split(line)
         if len(split_line) == 0:
@@ -123,8 +119,7 @@ class HBNBCommand(cmd.Cmd):
               if split_line[0] in k])
 
     def do_update(self, line):
-        """
-        Method to Updates an instance based on the class name
+        """Method to Updates an instance based on the class name
         and id by adding or updating attribute
         """
         split_line = shlex.split(line)
@@ -150,8 +145,7 @@ class HBNBCommand(cmd.Cmd):
             storage.all()[tmp_key].save()
 
     def default(self, line):
-        """
-        Method to  to retrieve all instances of a class by using
+        """Method to  to retrieve all instances of a class by using
         """
         line_tmp = line.split(".")
         if len(line_tmp) > 1:
@@ -163,8 +157,7 @@ class HBNBCommand(cmd.Cmd):
             print("*** Unknown syntax: {}".format(line))
 
     def do_count(self, line):
-        """
-        Method to print all elements of storage as a list of string
+        """Method to print the number of instance inside the storage file json
         """
         split_line = shlex.split(line)
         if len(split_line) == 0:
