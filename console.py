@@ -41,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
         """
         if len(line) == 0:
             print("** class name missing **")
-            return False
+            return
         try:
             split_line = shlex.split(line)
             _instance = eval(split_line[0])()
@@ -50,7 +50,7 @@ class HBNBCommand(cmd.Cmd):
 
         except Exception:
             print("** class doesn't exist **")
-            return False
+            return
 
     def do_show(self, line):
         """Representation of an instance based on the class name and id
@@ -58,20 +58,20 @@ class HBNBCommand(cmd.Cmd):
         split_line = shlex.split(line)
         if len(split_line) == 0:
             print("** class name missing **")
-            return False
+            return
         try:
             eval(split_line[0])
         except Exception:
             print("** class doesn't exist **")
-            return False
+            return
         if len(split_line) < 2:
             print("** instance id missing **")
-            return False
+            return
         try:
             eval(split_line[0])
         except Exception:
             print("** class doesn't exist **")
-            return False
+            return
 
         tmp_key = split_line[0] + "." + split_line[1]
         if tmp_key in storage.all().keys():
@@ -86,15 +86,15 @@ class HBNBCommand(cmd.Cmd):
         split_line = shlex.split(line)
         if len(split_line) == 0:
             print("** class name missing **")
-            return False
+            return
         try:
             eval(split_line[0])
         except Exception:
             print("** class doesn't exist **")
-            return False
+            return
         if len(split_line) < 2:
             print("** instance id missing **")
-            return False
+            return
 
         tmp_key = split_line[0] + "." + split_line[1]
         if tmp_key in storage.all().keys():
@@ -109,12 +109,12 @@ class HBNBCommand(cmd.Cmd):
         split_line = shlex.split(line)
         if len(split_line) == 0:
             print([str(v) for v in storage.all().values()])
-            return False
+            return
         try:
             eval(split_line[0])
         except Exception:
             print("** class doesn't exist **")
-            return False
+            return
         print([str(v) for k, v in storage.all().items()
               if split_line[0] in k])
 
@@ -125,12 +125,12 @@ class HBNBCommand(cmd.Cmd):
         split_line = shlex.split(line)
         if len(split_line) == 0:
             print("** class name missing **")
-            return False
+            return
         try:
             eval(split_line[0])
         except Exception:
             print("** class doesn't exist **")
-            return False
+            return
         if len(split_line) < 2:
             print("** instance id missing **")
         elif split_line[0] + "." + split_line[1] not in storage.all().keys():
@@ -164,12 +164,12 @@ class HBNBCommand(cmd.Cmd):
         split_line = shlex.split(line)
         if len(split_line) == 0:
             print(len([str(v) for v in storage.all().values()]))
-            return False
+            return
         try:
             eval(split_line[0])
         except Exception:
             print("** class doesn't exist **")
-            return False
+            return
         print(len([str(v) for k, v in storage.all().items()
               if split_line[0] in k]))
 
