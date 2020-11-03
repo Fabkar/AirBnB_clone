@@ -149,12 +149,16 @@ class HBNBCommand(cmd.Cmd):
     def default(self, line):
         """Method to  to retrieve all instances of a class by using
         """
-        line_tmp = line.split(".")
+        line_tmp = line.replace("(", ".").replace(")", ".").replace('"', "")\
+            .split(".")
         if len(line_tmp) > 1:
-            if line_tmp[1] == "all()":
+            if line_tmp[1] == "all":
                 self.do_all(line_tmp[0])
-            elif line_tmp[1] == "count()":
+            elif line_tmp[1] == "count":
                 self.do_count(line_tmp[0])
+            elif line_tmp[1] == "show":
+                arguments = line_tmp[0] + " " + line_tmp[2]
+                self.do_show(arguments)
         else:
             print("*** Unknown syntax: {}".format(line))
 
