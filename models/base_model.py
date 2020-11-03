@@ -33,21 +33,21 @@ class BaseModel:
 
     def __str__(self):
         """
-        Representation
+        Representation and format used
         """
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id,
                                      self.__dict__)
 
     def save(self):
         """
-        Updates
+        Updates all info into the storage
         """
         self.updated_at = datetime.today()
         models.storage.save()
 
     def to_dict(self):
         """
-        Dictionary
+        Dictionary containing all keys/values of __dict__ of the instance
         """
         d = self.__dict__.copy()
         d["__class__"] = self.__class__.__name__
