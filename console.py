@@ -151,6 +151,35 @@ class HBNBCommand(cmd.Cmd):
             setattr(storage.all()[tmp_key], split_line[2], split_line[3])
             storage.all()[tmp_key].save()
 
+    def default(self, line):
+        """
+        Method to  to retrieve all instances of a class by using
+        """
+        line_tmp = line.split(".")
+        if len(line_tmp) > 1:
+            if line_tmp[1] == "all()":
+                self.do_all(line_tmp[0])
+            elif line_tmp[1] == "count()":
+                self.do_count(line_tmp[0])
+        else:
+            print("*** Unknown syntax: {}".format(line))
+
+    def do_count(self, line):
+        """
+        Method to print all elements of storage as a list of string
+        """
+        split_line = shlex.split(line)
+        if len(split_line) == 0:
+            print(len([str(v) for v in storage.all().values()]))
+            return False
+        try:
+            eval(split_line[0])
+        except Exception:
+            print("** class doesn't exist **")
+            return False
+        print(len([str(v) for k, v in storage.all().items()
+              if split_line[0] in k]))
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
