@@ -147,6 +147,8 @@ class HBNBCommand(cmd.Cmd):
         elif len(split_line) < 4:
             print("** value missing **")
         else:
+            if split_line[3][0] == "\"":
+                split_line[3] = split_line[3][1:-1]
             tmp_key = split_line[0] + "." + split_line[1]
             setattr(storage.all()[tmp_key], split_line[2], split_line[3])
             storage.all()[tmp_key].save()
