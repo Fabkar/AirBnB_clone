@@ -75,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
 
         tmp_key = split_line[0] + "." + split_line[1]
         if tmp_key in storage.all().keys():
-            del(storage.all()[tmp_key])
+            print(storage.all()[tmp_key])
             storage.save()
         else:
             print("** no instance found **")
