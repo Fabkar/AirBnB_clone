@@ -65,8 +65,8 @@ class TestFileStorage(unittest.TestCase):
         """
         Tests docstring for all methods in TestBaseModel class
         """
-        methods = inspect.getmembers(TestFileStorage,
-                                     predicate=inspect.ismethod)
+        methods = inspect.getmembers(
+            TestFileStorage, predicate=inspect.ismethod)
         for name, func in methods:
             self.assertTrue(len(func.__doc__) > 20)
 
@@ -103,8 +103,8 @@ class TestFileStorage(unittest.TestCase):
         key = type(bm2_instance).__name__ + "." + str(bm2_instance.id)
         with open(TestFileStorage.path, mode="r", encoding="utf-8") as f:
             reader = json.load(f)
-        self.assertEqual(reader[key],
-                         TestFileStorage.storage.all()[key].to_dict())
+        self.assertEqual(
+            reader[key], TestFileStorage.storage.all()[key].to_dict())
 
 
 if __name__ == '__main__':
