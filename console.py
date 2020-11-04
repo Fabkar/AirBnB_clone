@@ -162,7 +162,6 @@ class HBNBCommand(cmd.Cmd):
             elif line_tmp[1] == "destroy":
                 self.do_destroy(arguments)
             elif line_tmp[1] == "update":
-                print(arguments)
                 self.do_update(arguments)
         else:
             print("*** Unknown syntax: {}".format(line))
